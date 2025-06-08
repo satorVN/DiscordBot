@@ -19,18 +19,21 @@ async def on_ready():
 
 @bot.command()
 async def bank(ctx):
+    embed = discord.Embed(title="💸 Thông tin tài khoản", color=discord.Color.green())
+    embed.add_field(name="Tên tài khoản", value="**NGO THANH NHAN**", inline=False)
+    embed.add_field(name="Số tài khoản", value="**35620089999**", inline=False)
+    embed.add_field(name="Ngân hàng", value="**MB Bank**", inline=False)
+    await ctx.send(embed=embed)
+
+@bot.command()
+async def qr(ctx):
     file_path = 'qr_image.jpg'
     if not os.path.exists(file_path):
         await ctx.send(f"Lỗi: Không tìm thấy file ảnh QR tại {file_path}. Vui lòng kiểm tra lại!")
         return
     try:
         file = discord.File(file_path)
-        embed = discord.Embed(title="💸 Thông tin tài khoản", color=discord.Color.green())
-        embed.add_field(name="Tên tài khoản", value="**NGO THANH NHAN**", inline=False)
-        embed.add_field(name="Số tài khoản", value="**35620089999**", inline=False)
-        embed.add_field(name="Ngân hàng", value="**MB Bank**", inline=False)
-        embed.set_image(url=f"attachment://qr_image.jpg")
-        await ctx.send(embed=embed, file=file)
+        await ctx.send(file=file)
     except Exception as e:
         await ctx.send(f"Lỗi khi gửi ảnh: {str(e)}")
 
